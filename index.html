@@ -1,643 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Do You Love Me? - Coquette Interactive Story</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts for Coquette aesthetic -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            coquette: {
-              100: '#FFF0F5', // Lavender blush / soft white
-              200: '#FFE4E1', // Misty Rose
-              300: '#FFC0CB', // Pink
-              400: '#FFB6C1', // Light Pink
-              500: '#FF9EAA', // Rose pink
-              600: '#E87A90', // Deep coquette pink
-              gold: '#D4AF37', // Vintage Gold
-              goldlight: '#F3E5AB'
-            }
-          },
-          fontFamily: {
-            title: ['"Dancing Script"', 'cursive'],
-            cute: ['"Fredoka One"', 'cursive'],
-            serif: ['"Playfair Display"', 'serif'],
-            body: ['"Nunito"', 'sans-serif'],
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-light: #fff0f5;
+            --pink-soft: #ffe4e1;
+            --pink-main: #ffb6c1;
+            --pink-deep: #ff69b4;
+            --pink-dark: #db7093;
+            --white: #ffffff;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
         }
-      }
-    }
-  </script>
 
-  <style>
-    body {
-      background-color: #FFF0F5;
-      background-image: 
-        radial-gradient(#FFB6C1 1px, transparent 1px),
-        radial-gradient(#FFB6C1 1px, #FFF0F5 1px);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
-      font-family: 'Nunito', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* Custom Floating Sparkles & Hearts */
-    @keyframes float {
-      0% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
-      50% { transform: translateY(-15px) rotate(5deg); opacity: 1; }
-      100% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
-    }
-
-    .animate-float {
-      animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes pulse-soft {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    .animate-pulse-soft {
-      animation: pulse-soft 2.5s ease-in-out infinite;
-    }
-
-    /* Coquette Lace Border styling */
-    .lace-border {
-      box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4), 0 0 0 12px #FFFFFF, 0 0 0 16px #FFB6C1;
-    }
-
-    /* Ribbon Bow Styling */
-    .ribbon-bow {
-      position: relative;
-      display: inline-block;
-    }
-
-    /* Custom Gold Frame */
-    .gold-frame {
-      border: 12px solid #D4AF37;
-      border-image: linear-gradient(to bottom right, #FFE259, #FFA751, #D4AF37, #996515, #F3E5AB) 1;
-      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3), inset 0 0 15px rgba(0,0,0,0.1);
-    }
-
-    /* Glass Effect Container */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(10px);
-      border: 3px solid #FFC0CB;
-    }
-
-    /* Transition effect for slides */
-    .slide-step {
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-  </style>
-</head>
-<body class="min-h-screen flex items-center justify-center p-3 sm:p-6 relative select-none">
-
-  <!-- Floating background decorative ribbons and hearts -->
-  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-    <div class="absolute top-6 left-6 text-3xl opacity-60 animate-float" style="animation-delay: 0s;">🎀</div>
-    <div class="absolute top-12 right-12 text-3xl opacity-60 animate-float" style="animation-delay: 1s;">✨</div>
-    <div class="absolute bottom-10 left-12 text-3xl opacity-60 animate-float" style="animation-delay: 2s;">💖</div>
-    <div class="absolute bottom-12 right-8 text-3xl opacity-60 animate-float" style="animation-delay: 1.5s;">🎀</div>
-    <div class="absolute top-1/2 left-4 text-2xl opacity-40 animate-float" style="animation-delay: 0.5s;">🌸</div>
-    <div class="absolute top-1/3 right-6 text-2xl opacity-40 animate-float" style="animation-delay: 2.5s;">🧸</div>
-  </div>
-
-  <!-- MAIN CONTAINER -->
-  <div class="w-full max-w-xl relative z-10 my-auto">
-    
-    <!-- Outer Decorative Coquette Box -->
-    <div class="glass-card rounded-3xl p-6 sm:p-8 lace-border relative shadow-2xl">
-      
-      <!-- Top Ribbon Badge -->
-      <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-coquette-400 text-white px-6 py-1.5 rounded-full font-title text-2xl shadow-md border-2 border-white flex items-center gap-2">
-        <span>🎀</span> <span id="header-subtitle">For My Beloved</span> <span>🎀</span>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- MINECRAFT PIXEL CAT MASCOT SVG CONTAINER                 -->
-      <!-- ======================================================== -->
-      <div class="w-full flex flex-col items-center justify-center pt-6 pb-2">
-        <div class="relative w-44 h-44 sm:w-52 sm:h-52 bg-pink-50/50 rounded-2xl p-2 border-2 border-dashed border-coquette-300 flex items-center justify-center">
-          
-          <!-- Minecraft Style Coquette Nametag above head -->
-          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20 bg-white/90 backdrop-blur-sm border-2 border-coquette-400 text-coquette-600 px-3 py-0.5 rounded-full shadow-md font-cute text-xs sm:text-sm tracking-wide flex items-center gap-1 animate-pulse-soft whitespace-nowrap">
-            <span>✨</span>
-            <span>mimmino 💞</span>
-            <span>✨</span>
-          </div>
-
-          <!-- Minecraft Cat SVG -->
-          <svg id="minecraft-cat" class="w-full h-full drop-shadow-md transition-all duration-300" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- CAT BODY & HEAD (White & Gray Minecraft Style Pixel Art) -->
-            <!-- Base White Head/Ears -->
-            <rect x="8" y="10" width="16" height="14" fill="#F8F9FA"/>
-            
-            <!-- Gray Pixel Patches / Stripes (White & Gray Cat) -->
-            <!-- Top Head Patch -->
-            <rect x="12" y="10" width="8" height="3" fill="#9E9E9E"/>
-            <rect x="8" y="11" width="3" height="3" fill="#757575"/>
-            <!-- Ear Outer (Left/Right) -->
-            <rect x="7" y="7" width="5" height="4" fill="#9E9E9E"/>
-            <rect x="20" y="7" width="5" height="4" fill="#9E9E9E"/>
-            <!-- Ear Inner Pink -->
-            <rect x="8" y="8" width="3" height="2" fill="#FFB6C1"/>
-            <rect x="21" y="8" width="3" height="2" fill="#FFB6C1"/>
-            
-            <!-- Cheeks / Muzzle White -->
-            <rect x="12" y="18" width="8" height="5" fill="#FFFFFF"/>
-            <!-- Nose (Pink Pixel) -->
-            <rect x="15" y="17" width="2" height="1" fill="#FF80AB"/>
-
-            <!-- Gray Body Stripes/Patches Sides -->
-            <rect x="22" y="15" width="2" height="5" fill="#BDBDBD"/>
-            <rect x="8" y="16" width="2" height="4" fill="#BDBDBD"/>
-
-            <!-- Whisker Details -->
-            <rect x="5" y="17" width="2" height="1" fill="#E0E0E0"/>
-            <rect x="25" y="17" width="2" height="1" fill="#E0E0E0"/>
-
-            <!-- ======================================== -->
-            <!-- RECT/DYNAMIC EYE & EXPRESSION STATES    -->
-            <!-- ======================================== -->
-
-            <!-- STATE 1: Default Green Eyes -->
-            <g id="cat-eyes-default" class="transition-opacity duration-300">
-              <!-- Left Eye (Green Pixel + Black Pupil) -->
-              <rect x="10" y="14" width="3" height="3" fill="#00E676"/>
-              <rect x="11" y="14" width="2" height="3" fill="#1B5E20"/>
-              <rect x="10" y="14" width="1" height="1" fill="#FFFFFF"/>
-              <!-- Right Eye -->
-              <rect x="19" y="14" width="3" height="3" fill="#00E676"/>
-              <rect x="19" y="14" width="2" height="3" fill="#1B5E20"/>
-              <rect x="20" y="14" width="1" height="1" fill="#FFFFFF"/>
-              <!-- Neutral Mouth -->
-              <rect x="15" y="19" width="2" height="1" fill="#757575"/>
-            </g>
-
-            <!-- STATE 2: Heart Eyes (Hover Yes / Highly Happy) -->
-            <g id="cat-eyes-hearts" class="opacity-0 transition-opacity duration-300">
-              <!-- Left Heart Eye -->
-              <path d="M 9,13 h 2 v 1 h -2 z M 12,13 h 2 v 1 h -2 z M 9,14 h 5 v 1 h -5 z M 10,15 h 3 v 1 h -3 z M 11,16 h 1 v 1 h -1 z" fill="#FF1744"/>
-              <!-- Right Heart Eye -->
-              <path d="M 18,13 h 2 v 1 h -2 z M 21,13 h 2 v 1 h -2 z M 18,14 h 5 v 1 h -5 z M 19,15 h 3 v 1 h -3 z M 20,16 h 1 v 1 h -1 z" fill="#FF1744"/>
-              <!-- Happy Smile Mouth -->
-              <path d="M 13,19 h 1 v 1 h -1 z M 18,19 h 1 v 1 h -1 z M 14,20 h 4 v 1 h -4 z" fill="#E87A90"/>
-              <!-- Cute Blush -->
-              <rect x="8" y="17" width="3" height="1" fill="#FF80AB" opacity="0.8"/>
-              <rect x="21" y="17" width="3" height="1" fill="#FF80AB" opacity="0.8"/>
-            </g>
-
-            <!-- STATE 3: Crying Eyes (Hover/Attempt No / Far Date) -->
-            <g id="cat-eyes-crying" class="opacity-0 transition-opacity duration-300">
-              <!-- Sad Closed/Squeezing Eyes -->
-              <rect x="9" y="14" width="4" height="1" fill="#424242"/>
-              <rect x="10" y="13" width="2" height="1" fill="#424242"/>
-              <rect x="19" y="14" width="4" height="1" fill="#424242"/>
-              <rect x="20" y="13" width="2" height="1" fill="#424242"/>
-              <!-- Sad Mouth -->
-              <path d="M 14,20 h 4 v 1 h -4 z M 13,21 h 1 v 1 h -1 z M 18,21 h 1 v 1 h -1 z" fill="#424242"/>
-              <!-- Animated Tear Drops -->
-              <rect id="tear-left" x="9" y="16" width="2" height="3" fill="#29B6F6" opacity="0.9"/>
-              <rect id="tear-right" x="21" y="16" width="2" height="3" fill="#29B6F6" opacity="0.9"/>
-              <rect x="8" y="19" width="1" height="2" fill="#80D8FF"/>
-              <rect x="23" y="19" width="1" height="2" fill="#80D8FF"/>
-            </g>
-
-            <!-- STATE 4: Slightly Sad (Moderate Date Distance) -->
-            <g id="cat-eyes-sad" class="opacity-0 transition-opacity duration-300">
-              <rect x="10" y="15" width="3" height="2" fill="#00E676"/>
-              <rect x="10" y="14" width="3" height="1" fill="#9E9E9E"/>
-              <rect x="19" y="15" width="3" height="2" fill="#00E676"/>
-              <rect x="19" y="14" width="3" height="1" fill="#9E9E9E"/>
-              <!-- Downturned mouth -->
-              <rect x="14" y="20" width="4" height="1" fill="#616161"/>
-            </g>
-
-          </svg>
-
-          <!-- Floating Sparkles around cat -->
-          <div id="cat-sparkles" class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-between p-2">
-            <span class="text-xl animate-ping">💖</span>
-            <span class="text-lg animate-bounce">✨</span>
-            <span class="text-xl animate-ping">🌸</span>
-          </div>
-        </div>
-
-        <!-- Cat Mood Label -->
-        <div id="cat-status-text" class="mt-2 text-xs font-bold tracking-wider text-coquette-600 uppercase bg-white/80 px-3 py-1 rounded-full border border-coquette-300 shadow-sm">
-          Feeling Neutral 🐾
-        </div>
-      </div>
-
-
-      <!-- ======================================================== -->
-      <!-- SLIDE 1: "DO YOU LOVE ME?"                                -->
-      <!-- ======================================================== -->
-      <div id="slide-1" class="slide-step block text-center py-4">
-        <h1 class="text-3xl sm:text-4xl font-cute text-coquette-600 mb-2 drop-shadow-sm">
-          do you love me?
-        </h1>
-        <p class="text-sm text-gray-500 font-body mb-8 italic">
-          Please answer carefully... 💭
-        </p>
-
-        <!-- Interactive Button Area with boundary box -->
-        <div id="button-container" class="relative w-full h-36 flex items-center justify-center gap-6 overflow-hidden rounded-2xl bg-pink-100/40 p-4 border border-coquette-200">
-          
-          <!-- "YES" BUTTON (Stays still, clickable) -->
-          <button 
-            id="yes-btn"
-            onclick="goToSlide(2)"
-            onmouseenter="setCatMood('heart')"
-            onmouseleave="resetCatMood()"
-            class="z-20 px-8 py-3.5 bg-gradient-to-r from-coquette-400 to-coquette-500 hover:from-coquette-500 hover:to-coquette-600 text-white font-cute text-xl rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 active:scale-95 transition-all duration-200 flex items-center gap-2 border-2 border-white">
-            <span>Si!</span> <span>💖</span>
-          </button>
-
-          <!-- "NO" BUTTON (Evades cursor dynamically inside/around container) -->
-          <button 
-            id="no-btn"
-            onmouseenter="triggerNoEvade()"
-            onclick="triggerNoEvade()"
-            class="z-20 px-7 py-3 bg-white text-coquette-600 font-cute text-lg rounded-full shadow-md border-2 border-coquette-300 transition-all duration-150 absolute"
-            style="position: absolute; left: 62%; top: 32%;">
-            No 💔
-          </button>
-        </div>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- SLIDE 2: "DO YOU REMEMBER WHEN WE GOT TOGETHER?"         -->
-      <!-- ======================================================== -->
-      <div id="slide-2" class="slide-step hidden text-center py-2">
-        <h2 class="text-2xl sm:text-3xl font-cute text-coquette-600 mb-1">
-          Do you remember when we got together?
-        </h2>
-        <p class="text-xs sm:text-sm text-gray-500 font-body mb-6">
-          Pick the special date! Watch how Kitty reacts as you get closer... 🗓️
-        </p>
-
-        <!-- Date Picker Container -->
-        <div class="bg-white/90 p-5 rounded-2xl border-2 border-coquette-300 shadow-inner mb-6 max-w-md mx-auto">
-          <label for="anniversary-date" class="block text-xs font-bold text-coquette-600 uppercase tracking-widest mb-2">
-            Select Our Date ✨
-          </label>
-          <input 
-            type="date" 
-            id="anniversary-date"
-            value="2025-01-01"
-            onchange="evaluateDateProximity()"
-            oninput="evaluateDateProximity()"
-            class="w-full px-4 py-3 rounded-xl border-2 border-coquette-300 focus:border-coquette-500 focus:ring-2 focus:ring-coquette-200 outline-none font-cute text-coquette-600 text-center text-lg bg-coquette-100/50 cursor-pointer shadow-sm"
-          />
-
-          <!-- Meter Indicator -->
-          <div class="mt-4">
-            <div class="flex justify-between text-xs font-bold text-coquette-500 mb-1">
-              <span>Cold ❄️</span>
-              <span id="proximity-percentage">50% Warm</span>
-              <span>Perfect! 🥰</span>
-            </div>
-            <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden p-0.5 border border-coquette-300">
-              <div id="proximity-bar" class="h-full bg-gradient-to-r from-coquette-300 to-coquette-500 rounded-full transition-all duration-300" style="width: 50%;"></div>
-            </div>
-            <p id="date-feedback" class="text-xs text-coquette-600 font-bold mt-2 h-5">
-              Hmm... that doesn't feel like the right day!
-            </p>
-          </div>
-        </div>
-
-        <!-- Submit Button -->
-        <button 
-          id="submit-date-btn"
-          onclick="submitDateAndProceed()"
-          class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-coquette-400 to-coquette-500 text-white font-cute text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-200 border-2 border-white flex items-center justify-center gap-2 mx-auto">
-          <span>Invia / Submit</span> <span>💌</span>
-        </button>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- SLIDE 3: REVEAL PHOTO & DEDICATION                       -->
-      <!-- ======================================================== -->
-      <div id="slide-3" class="slide-step hidden text-center py-2">
-        <div class="inline-block mb-2">
-          <span class="text-2xl">👑</span>
-          <h2 class="text-2xl sm:text-3xl font-title text-coquette-600 inline-block px-2">
-            Per Sempre Insieme
-          </h2>
-          <span class="text-2xl">👑</span>
-        </div>
-
-        <!-- Ornate Golden Frame Container -->
-        <div class="relative max-w-xs sm:max-w-sm mx-auto my-3 p-3 bg-white rounded-xl shadow-xl gold-frame transform transition-all duration-300 hover:scale-[1.02]">
-          
-          <!-- Corner Ribbons -->
-          <div class="absolute -top-4 -left-4 text-3xl z-20">🎀</div>
-          <div class="absolute -top-4 -right-4 text-3xl z-20">🎀</div>
-
-          <!-- Photo Container -->
-          <div class="relative overflow-hidden rounded-lg bg-pink-100 aspect-square flex items-center justify-center border-2 border-coquette-200 group">
-            
-            <!-- Default Styled Romantics Couple Placeholder Photo -->
-            <img 
-              id="couple-photo"
-              src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop" 
-              alt="Our Photo" 
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              onerror="this.src='https://placehold.co/600x600/ffe4e1/e87a90?text=Ti+Amo+Tautau+💖'"
-            />
-
-            <!-- Soft Rosy Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-coquette-600/30 via-transparent to-transparent pointer-events-none"></div>
-
-            <!-- Custom Photo Upload Button Overlay -->
-            <label for="photo-upload" class="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-coquette-600 text-xs px-2.5 py-1.5 rounded-full shadow border border-coquette-300 cursor-pointer font-bold transition-all opacity-80 hover:opacity-100">
-              📷 Cambia Foto
-            </label>
-            <input type="file" id="photo-upload" accept="image/*" class="hidden" onchange="uploadCustomPhoto(event)" />
-          </div>
-
-          <!-- Caption inside frame -->
-          <div class="mt-3 pt-2 border-t border-coquette-200">
-            <p class="font-title text-2xl sm:text-3xl text-coquette-600 font-bold tracking-wide">
-              "ti amo da morire tautau"
-            </p>
-          </div>
-        </div>
-
-        <!-- Dedicated Signature -->
-        <div class="mt-4 p-3 bg-coquette-100/80 rounded-2xl border border-coquette-300 max-w-sm mx-auto shadow-sm">
-          <p class="font-serif italic text-sm text-coquette-600 leading-relaxed">
-            firmato la tua bimba bella che ti ama da morire
-          </p>
-          <div class="text-xl mt-1">🎀🌸🧸💖✨</div>
-        </div>
-
-        <!-- Replay / Back button -->
-        <button 
-          onclick="goToSlide(1)"
-          class="mt-5 px-6 py-2 bg-white text-coquette-500 hover:bg-coquette-100 text-xs font-bold rounded-full border border-coquette-300 transition-all shadow-sm">
-          ↺ Ricomincia / Restart
-        </button>
-      </div>
-
-    </div>
-
-    <!-- Bottom Aesthetic Footer Details -->
-    <div class="text-center mt-4 text-xs font-body text-coquette-500/80 tracking-widest uppercase">
-      ✦ Made with eternal love ✦
-    </div>
-  </div>
-
-
-  <!-- ======================================================== -->
-  <!-- JAVASCRIPT INTERACTION LOGIC                            -->
-  <!-- ======================================================== -->
-  <script>
-    // State Variables
-    let currentSlide = 1;
-    let noEvadeCount = 0;
-    const targetDate = new Date("2025-08-25");
-
-    // DOM Elements
-    const catEyesDefault = document.getElementById('cat-eyes-default');
-    const catEyesHearts = document.getElementById('cat-eyes-hearts');
-    const catEyesCrying = document.getElementById('cat-eyes-crying');
-    const catEyesSad = document.getElementById('cat-eyes-sad');
-    const catSparkles = document.getElementById('cat-sparkles');
-    const catStatusText = document.getElementById('cat-status-text');
-    const noBtn = document.getElementById('no-btn');
-    const btnContainer = document.getElementById('button-container');
-
-    // Slide Switching Logic
-    function goToSlide(slideNumber) {
-      // Hide all slides
-      document.getElementById('slide-1').classList.add('hidden');
-      document.getElementById('slide-2').classList.add('hidden');
-      document.getElementById('slide-3').classList.add('hidden');
-
-      currentSlide = slideNumber;
-
-      // Show requested slide
-      const activeSlide = document.getElementById(`slide-${slideNumber}`);
-      activeSlide.classList.remove('hidden');
-
-      // Update subtitle badge based on slide
-      const subtitle = document.getElementById('header-subtitle');
-      if (slideNumber === 1) {
-        subtitle.innerText = "For My Beloved";
-        resetCatMood();
-      } else if (slideNumber === 2) {
-        subtitle.innerText = "Our Special Memory";
-        evaluateDateProximity(); // Check initial date value
-      } else if (slideNumber === 3) {
-        subtitle.innerText = "Eternal Love";
-        setCatMood('heart');
-        catStatusText.innerText = "Super Happy! 🥰💖";
-        triggerHeartsConfetti();
-      }
-    }
-
-    // Cat Mood Expression Switcher
-    function setCatMood(mood) {
-      // Hide all eye states
-      catEyesDefault.classList.add('opacity-0');
-      catEyesHearts.classList.add('opacity-0');
-      catEyesCrying.classList.add('opacity-0');
-      catEyesSad.classList.add('opacity-0');
-      catSparkles.classList.add('opacity-0');
-
-      if (mood === 'heart') {
-        catEyesHearts.classList.remove('opacity-0');
-        catSparkles.classList.remove('opacity-0');
-        catStatusText.innerText = "In Love! 😍";
-      } else if (mood === 'crying') {
-        catEyesCrying.classList.remove('opacity-0');
-        catStatusText.innerText = "Please Don't Say No! 😭";
-      } else if (mood === 'sad') {
-        catEyesSad.classList.remove('opacity-0');
-        catStatusText.innerText = "So Sad... 🥺";
-      } else {
-        catEyesDefault.classList.remove('opacity-0');
-        catStatusText.innerText = "Feeling Curious 🐾";
-      }
-    }
-
-    function resetCatMood() {
-      if (currentSlide === 1) {
-        setCatMood('default');
-      } else if (currentSlide === 2) {
-        evaluateDateProximity();
-      } else if (currentSlide === 3) {
-        setCatMood('heart');
-      }
-    }
-
-    // Dynamic "NO" Button Evasion Logic
-    function triggerNoEvade() {
-      noEvadeCount++;
-      setCatMood('crying');
-
-      // Calculate container boundaries
-      const containerRect = btnContainer.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-
-      // Generate random positioning within button container limits
-      const maxX = containerRect.width - btnRect.width - 20;
-      const maxY = containerRect.height - btnRect.height - 20;
-
-      const randomX = Math.max(10, Math.floor(Math.random() * maxX));
-      const randomY = Math.max(10, Math.floor(Math.random() * maxY));
-
-      noBtn.style.left = `${randomX}px`;
-      noBtn.style.top = `${randomY}px`;
-
-      // Playful teasing text changes for "No" button after multiple attempts
-      if (noEvadeCount === 3) {
-        noBtn.innerText = "Nope! 😜";
-      } else if (noEvadeCount === 5) {
-        noBtn.innerText = "Too slow! 💖";
-      } else if (noEvadeCount === 8) {
-        noBtn.innerText = "Just click YES! 🎀";
-      }
-
-      // Revert cat mood slightly after delay if cursor moves away
-      setTimeout(() => {
-        if (currentSlide === 1 && !noBtn.matches(':hover')) {
-          resetCatMood();
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
         }
-      }, 1800);
-    }
 
-    // Track mouse proximity to NO button on Slide 1 for extra smooth dodge
-    document.addEventListener('mousemove', (e) => {
-      if (currentSlide !== 1) return;
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--pink-light);
+            background-image: 
+                radial-gradient(var(--pink-main) 1px, transparent 1px),
+                radial-gradient(var(--pink-main) 1px, var(--pink-light) 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            color: #5a4b51;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
 
-      const btnRect = noBtn.getBoundingClientRect();
-      const btnCenterX = btnRect.left + btnRect.width / 2;
-      const btnCenterY = btnRect.top + btnRect.height / 2;
+        .bow-decor {
+            position: absolute;
+            font-size: 24px;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: float 4s ease-in-out infinite;
+        }
 
-      const distance = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
 
-      // If cursor gets within 65px radius, dodge away!
-      if (distance < 65) {
-        triggerNoEvade();
-      }
-    });
+        .container {
+            width: 90%;
+            max-width: 500px;
+            min-height: 550px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border: 3px solid var(--pink-main);
+            border-radius: 30px;
+            padding: 30px 20px;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4),
+                        0 0 0 10px rgba(255, 255, 255, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+        }
 
+        .slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
 
-    // ========================================================
-    // SLIDE 2: DATE PROXIMITY EVALUATION
-    // ========================================================
-    function evaluateDateProximity() {
-      const inputVal = document.getElementById('anniversary-date').value;
-      if (!inputVal) return;
+        .slide.active {
+            display: flex;
+        }
 
-      const selectedDate = new Date(inputVal);
-      const feedback = document.getElementById('date-feedback');
-      const progressBar = document.getElementById('proximity-bar');
-      const percentageText = document.getElementById('proximity-percentage');
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
 
-      // Calculate difference in days
-      const diffTime = Math.abs(selectedDate - targetDate);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        h1, h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--pink-dark);
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
 
-      // 0 days = exact match!
-      if (diffDays === 0) {
-        setCatMood('heart');
-        progressBar.style.width = "100%";
-        percentageText.innerText = "100% PERFECT!";
-        feedback.innerText = "Yes!! 25 August 2025! You remembered! 🎉💖";
-        feedback.className = "text-xs font-bold mt-2 h-5 text-green-600 animate-bounce";
-      } else if (diffDays <= 15) {
-        setCatMood('heart');
-        const warmth = Math.max(80, 100 - diffDays);
-        progressBar.style.width = `${warmth}%`;
-        percentageText.innerText = `${warmth}% Super Warm!`;
-        feedback.innerText = "So close!! Just a few days off! 🥰";
-        feedback.className = "text-xs font-bold mt-2 h-5 text-coquette-600";
-      } else if (diffDays <= 60) {
-        setCatMood('default');
-        const warmth = Math.max(50, 90 - Math.floor(diffDays / 2));
-        progressBar.style.width = `${warmth}%`;
-        percentageText.innerText = `${warmth}% Warm`;
-        feedback.innerText = "Getting warmer... think of late summer 2025! ☀️";
-        feedback.className = "text-xs font-bold mt-2 h-5 text-coquette-500";
-      } else if (diffDays <= 180) {
-        setCatMood('sad');
-        progressBar.style.width = "30%";
-        percentageText.innerText = "30% Getting Cold";
-        feedback.innerText = "Getting colder... Kitty is getting a bit sad! 🥺";
-        feedback.className = "text-xs font-bold mt-2 h-5 text-amber-600";
-      } else {
-        setCatMood('crying');
-        progressBar.style.width = "10%";
-        percentageText.innerText = "10% Freezing!";
-        feedback.innerText = "Far away! Kitty is crying, try 25 August 2025! 😭";
-        feedback.className = "text-xs font-bold mt-2 h-5 text-blue-500";
-      }
-    }
-
-    function submitDateAndProceed() {
-      const inputVal = document.getElementById('anniversary-date').value;
-      
-      // If user is close or wants to proceed, take them to the final slide
-      goToSlide(3);
-    }
-
-    // ========================================================
-    // SLIDE 3: PHOTO UPLOAD HANDLER
-    // ================================================= structure
-    function uploadCustomPhoto(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById('couple-photo').src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    // Visual heart animation on final slide
-    function triggerHeartsConfetti() {
-      for (let i = 0; i < 12; i++) {
-        setTimeout(() => {
-          const heart = document.createElement('div');
-          heart.innerText = ['💖', '🎀', '✨', '🌸', '💕'][Math.floor(Math.random() * 5)];
-          heart.className = 'fixed text-2xl pointer-events-none z-50 transition-all duration-1000';
-          heart.style.left = `${Math.random() * 80 + 10}%`;
-          heart.style.top = `${Math.random() * 80 + 10}%`;
-          heart.style.opacity = '1';
-          heart.style.transform = 'scale(0.5)';
-          
-          document.body.appendChild(heart);
-
-          setTimeout(() => {
-            heart.style.transform = 'scale(1.5) translateY(-40px)';
-            heart.style.opacity = '0';
-          }, 50);
-
-          setTimeout(() => heart.remove(), 1050);
-        }, i * 150);
-      }
-    }
-
-    // Initialize initial state on load
-    window.onload = function() {
-      resetCatMood();
-    };
-  </script>
-</body>
-</html>
+        p {
